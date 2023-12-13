@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PhonePe Payment</title>
+  <style>
+    .processing, .success, .failure {
+      display: none;
+    }
+
+    .main{
+        text-align: center;
+        margin-top: 200px;
+    }
+
+    #makePayment{
+        padding: 15px;
+        border: none;
+        background-color: black;
+        color: wheat;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+ 
+    <div class="main">
+        <div class="processing">
+            <h1>Processing Payment...</h1>
+          </div>
+        
+          <div class="success">
+            <h1>Payment Successful!✅</h1>
+          </div>
+        
+          <div class="failure">
+            <h1>Payment Failed!❌</h1>
+          </div>
+        
+          <button id="makePayment">Make Payment</button>
+    </div>
+
+  <script>
+
+    function makePayment() 
+    {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          var isSuccess = Math.random() < 0.5; 
+
+          if (isSuccess) 
+          {
+            resolve();
+          } 
+          else 
+          {
+            reject();
+          }
+        }, 2000); 
+      });
+    }
+
+    document.getElementById('makePayment').addEventListener('click', async () => {
+      document.querySelector('.processing').style.display = 'block';
+      try {
+        await makePayment();
+        document.querySelector('.processing').style.display = 'none';
+        document.querySelector('.success').style.display = 'block';
+      } catch (error) {
+        document.querySelector('.processing').style.display = 'none';
+        document.querySelector('.failure').style.display = 'block';
+      }
+    });
+
+  </script>
+</body>
+</html>
